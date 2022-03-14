@@ -29,6 +29,7 @@ namespace FibonacciServer
                     rowsOfNumbers.Add(row);
                 }
             }
+            _rowsOfNumbers.AddRange(rowsOfNumbers);
             return new FibonacciReversedRows(rowsOfNumbers);
         }
         public string GetReversedResults()
