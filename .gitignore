@@ -16,6 +16,7 @@
 FibonacciServer.sln
 FibonacciServerTests.csproj
 *.json
+FibonacciServer/NLog.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
