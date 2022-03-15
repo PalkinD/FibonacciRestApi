@@ -23,7 +23,7 @@ namespace FibonacciServer.Controllers
             _fibonacciReversedRows = fibonacciReversedRows;
         }
       [HttpGet]
-      public ActionResult GetReversedNumbers()
+      public ActionResult GetAllReversedNumbers()
         {
             _logger.LogInformation($"GetReverseNumbers was used at {DateTime.Now:hh:mm:ss}");
             if (_fibonacciReversedRows.Count <= 0)
@@ -32,6 +32,26 @@ namespace FibonacciServer.Controllers
                 return NotFound();
             }
             return Ok(_fibonacciReversedRows.GetReversedResults());
+        }
+        [HttpGet("{id}")]
+        public ActionResult GetOneArrayOfReversedNumbers(int id)
+        {
+            _logger.LogInformation($"GetOneArrayOfReversedNumbers was used at {DateTime.Now:hh:mm:ss}");
+            if (_fibonacciReversedRows.Count <= 0)
+            {
+                _logger.LogError(NotFound().ToString());
+                return NotFound();
+            }
+            string result;
+            try
+            {
+                result = _fibonacciReversedRows.GetOneReversedResult(id);
+            }catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+            return Ok(result);
         }
         [HttpPost]
         public ActionResult PostNumbers([FromBody] string text)
@@ -47,10 +67,10 @@ namespace FibonacciServer.Controllers
             message = text + " such string was sent";
             doubleLogInfo(message);
 
-            IReversedCollection<RowOfNumbers> numbers;
+            List<RowOfNumbers> numbers;
             try
             {
-                 numbers = _fibonacciReversedRows.Add(TextTransformator.TakeNumbersFromText(text));
+                 numbers = _fibonacciReversedRows.Add(TextMaster.TakeNumbersFromText(text));
             }catch(Exception ex)
             {
                 doubleLogError(ex.Message);
@@ -62,10 +82,10 @@ namespace FibonacciServer.Controllers
                 doubleLogError(message);
                 return BadRequest(message);
             }
-            message = "Maden reversed rows :"+numbers.GetReversedResults();
+            message = "Maden reversed rows :"+TextMaster.GetResultsInText(numbers);
             doubleLogInfo(message);
 
-            return Ok(numbers.GetReversedResults());
+            return Ok(TextMaster.GetResultsInText(numbers));
         }
         [HttpDelete]
         public ActionResult ClearRows()
@@ -82,7 +102,25 @@ namespace FibonacciServer.Controllers
             }
             return Ok();
         }
-
+        [HttpDelete("{id}")]
+        public ActionResult DeleteOneArrayOfRows(int id)
+        {
+            _logger.LogInformation($"DeleteOneArrayOfRows was used at {DateTime.Now:hh:mm:ss}");
+            if (_fibonacciReversedRows.Count <= 0)
+            {
+                _logger.LogError(NotFound().ToString());
+                return NotFound();
+            }
+            try
+            {
+                _fibonacciReversedRows.Delete(id);
+            }catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
         private void doubleLogInfo(string message)
         {
             _logger.LogInformation(message);

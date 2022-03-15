@@ -19,10 +19,11 @@ namespace FibonacciServer
             int[] expectedSecond = new int[] { 5,6,7 };
             string text = "0,1,1,2,3,5 hello1,s2,3 wow,3 5,6,7";
             //WHEN
-            RowOfNumbers[] result=TextTransformator.TakeNumbersFromText(text);
+            RowOfNumbers[] result=TextMaster.TakeNumbersFromText(text);
             //THEN
             CollectionAssert.AreEquivalent(expectedFirst, result[first].Numbers);
             CollectionAssert.AreEquivalent(expectedSecond, result[second].Numbers);
         }
-    }
-}
+        }
+ }
+

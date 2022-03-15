@@ -7,18 +7,13 @@ namespace FibonacciServer
 {
     public class FibonacciReversedRows : IReversedCollection<RowOfNumbers>
     {
-        private List<RowOfNumbers> _rowsOfNumbers;
+        private List<List<RowOfNumbers>> _rowsOfNumbers;
         public int Count { get => _rowsOfNumbers.Count; }
         public FibonacciReversedRows()
         {
-            _rowsOfNumbers = new List<RowOfNumbers>();
+            _rowsOfNumbers = new List<List<RowOfNumbers>>();
         }
-        public FibonacciReversedRows(List<RowOfNumbers> rowsOfNumbers)
-        {
-            _rowsOfNumbers = new List<RowOfNumbers>();
-            _rowsOfNumbers.AddRange(rowsOfNumbers);
-        }
-        public IReversedCollection<RowOfNumbers> Add(params RowOfNumbers[] values)
+        public List<RowOfNumbers> Add(params RowOfNumbers[] values)
         {
             List<RowOfNumbers> rowsOfNumbers = new List<RowOfNumbers>();
             foreach (var row in values) {
@@ -29,21 +24,40 @@ namespace FibonacciServer
                     rowsOfNumbers.Add(row);
                 }
             }
-            _rowsOfNumbers.AddRange(rowsOfNumbers);
-            return new FibonacciReversedRows(rowsOfNumbers);
+            _rowsOfNumbers.Add(rowsOfNumbers);
+            return rowsOfNumbers;
         }
-        public string GetReversedResults()
+        public string GetReversedResults()// to think
         {
-            string result = "";
-            foreach(var row in _rowsOfNumbers)
+            string result = "{\n";
+            for (int i=0;i<Count;i++)
             {
-                result += row.ToString() + "\n";
+                result +=i+":"+TextMaster.GetResultsInText(_rowsOfNumbers[i]) + "\n";
             }
+            result += "}";
             return result;
         }
         public void Clear()
         {
             _rowsOfNumbers.Clear();
+        }
+
+        public string GetOneReversedResult(int id)
+        {
+            if (id > Count)
+            {
+                throw new Exception("There is no such element");
+            }
+            return TextMaster.GetResultsInText(_rowsOfNumbers[id]);
+        }
+
+        public void Delete(int id)
+        {
+            if (id > Count)
+            {
+                throw new Exception("There is no such element");
+            }
+            _rowsOfNumbers.RemoveAt(id);
         }
     }
 }

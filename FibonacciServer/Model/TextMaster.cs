@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FibonacciServer
 {
-    public static class TextTransformator
+    public static class TextMaster
     {
         public static RowOfNumbers [] TakeNumbersFromText(string text)
         {
@@ -32,5 +32,24 @@ namespace FibonacciServer
             }
             return rowsOFNumbers.ToArray();
         }
+        //public static string MatchTest( string text)
+        //{
+        //    return Regex.Matches(text, "(\d,)*\d{1}");
+        //}
+        public static string GetResultsInText(List<RowOfNumbers> rowsOfNumbers)
+        {
+            int lastElement = rowsOfNumbers.Count - 1;
+            string result = "   [";
+            for (int i=0; i< rowsOfNumbers.Count; i++)
+            {
+                result += rowsOfNumbers[i].ToString();
+                if (i != lastElement)
+                {
+                    result += "\n     ";
+                }
+            }
+            result += "]";
+            return result;
+        } 
     }
 }
