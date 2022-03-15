@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FibonacciServer
 {
-    public record RowOfNumbers
+    public class RowOfNumbers
     {
        public int [] Numbers { get; set; }
 

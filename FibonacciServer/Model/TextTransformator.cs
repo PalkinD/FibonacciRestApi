@@ -10,11 +10,12 @@ namespace FibonacciServer
     {
         public static RowOfNumbers [] TakeNumbersFromText(string text)
         {
+            string regex = "[a-zA-Zа-яА-Я]+|[a-zA-Zа-яА-Я]";
             List<RowOfNumbers> rowsOFNumbers = new List<RowOfNumbers>();
             foreach (string row in text.Split(" "))
             {
-                if(!Regex.IsMatch(row, "[a-zA-Zа-яА-Я]+|[a-zA-Zа-яА-Я]"))
-                {
+                if(!Regex.IsMatch(row, regex))
+                { 
                     string[] symbols = row.Split(',');
                     RowOfNumbers numbers = new RowOfNumbers();
                     numbers.Numbers = new int[symbols.Length];
