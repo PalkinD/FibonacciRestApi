@@ -12,7 +12,7 @@ namespace FibonacciServer
             int previos = 0;
             for (int i = 0; i < numbers.Length; i++)
             {
-                if (numbers[i] < previos||!IsNumberFibonacci(numbers[i])||(i >= 2 && !IsNumberFibonacci(numbers[i], numbers[i - 1], numbers[i - 2])))
+                if (numbers[i] < previos||!IsNumberFibonacci(numbers[i])||(i >= 2 && !IsNumberFibonacci(numbers[i], previos, numbers[i - 2])))
                 {
                     return false;
                 }

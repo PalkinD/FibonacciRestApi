@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace FibonacciServer
 {
     [TestClass]
-    public class TestTextTransfomator
+    public class TestTextMaster
     {
         [TestMethod]
         public void testTakeNumbersFromText()
@@ -17,7 +17,7 @@ namespace FibonacciServer
             //GIVEN
             int[] expectedFirst=new int[]{ 0,1,1,2,3,5};
             int[] expectedSecond = new int[] { 5,6,7 };
-            string text = "0,1,1,2,3,5?8 13 21 34";
+            string text = "0,1,1,2,3,5?asd 1 2 3?1,2,3 4 5 6 7?5 6 7";
             //"0,1,1,2,3,5?hello1,s2,3?wow,3 5,6,7?8 13 21 34"
             //WHEN
             RowOfNumbers[] result=TextMaster.TakeNumbersFromText(text);
