@@ -13,7 +13,6 @@ namespace FibonacciServer
             const string specialSymbol = "?";
             const string Space = " ";
             const string Comma = ",";
-            const string CommaWithSpace = ", ";
             List<RowOfNumbers> rowsOFNumbers = new List<RowOfNumbers>();
             foreach (string row in text.Split(specialSymbol))
             {
@@ -24,10 +23,6 @@ namespace FibonacciServer
                 if (isMatch(Comma, row))
                 {
                     rowsOFNumbers.Add(obtainNumbersFromRow(Comma, row));
-                }
-                if (isMatch(CommaWithSpace, row))
-                {
-                    rowsOFNumbers.Add(obtainNumbersFromRow(CommaWithSpace, row));
                 }
             }
             if (rowsOFNumbers.Count <= 0)
