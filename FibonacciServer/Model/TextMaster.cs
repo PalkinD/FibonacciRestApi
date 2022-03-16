@@ -8,31 +8,6 @@ namespace FibonacciServer
 {
     public static class TextMaster
     {
-        //public static RowOfNumbers[] TakeNumbersFromText(string text)
-        //{
-        //    string regex = "[a-zA-Zа-яА-Я]+|[a-zA-Zа-яА-Я]";
-        //    const string specialSymbol = "?";
-        //    List<RowOfNumbers> rowsOFNumbers = new List<RowOfNumbers>();
-        //    foreach (string row in text.Split(specialSymbol))
-        //    {
-        //        if (Regex.IsMatch(row, regex))
-        //        {
-        //            string[] symbols = row.Split(',');
-        //            RowOfNumbers numbers = new RowOfNumbers();
-        //            numbers.Numbers = new int[symbols.Length];
-        //            for (int i = 0; i < symbols.Length; i++)
-        //            {
-        //                numbers.Numbers[i] = Int32.Parse(symbols[i]);
-        //            }
-        //            rowsOFNumbers.Add(numbers);
-        //        }
-        //    }
-        //    if (rowsOFNumbers.Count <= 0)
-        //    {
-        //        throw new Exception("No number rows");
-        //    }
-        //    return rowsOFNumbers.ToArray();
-        //}
         public static RowOfNumbers[] TakeNumbersFromText(string text)
         {
             const string specialSymbol = "?";
@@ -63,12 +38,12 @@ namespace FibonacciServer
         }
         private static bool isMatch(string separator,string row)
         {
-            string regex = @"(\d,)*\d{1}";
+            string regex = "^.[0-9"+separator+"]*$";//to do space+coma
             return Regex.IsMatch(row, regex);
         }
         private static RowOfNumbers  obtainNumbersFromRow(string separator,string row)
         {
-            string[] symbols = row.Split(',');
+            string[] symbols = row.Split(separator);
             RowOfNumbers numbers = new RowOfNumbers();
             numbers.Numbers = new int[symbols.Length];
             for (int i = 0; i < symbols.Length; i++)
